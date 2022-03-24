@@ -20,6 +20,18 @@ $ npx typedoc --plugin typedoc-plugin-header-links [args]
 
 The following arguments can be used in addition to the default [TypeDoc arguments](https://github.com/TypeStrong/typedoc#arguments).
 
+**headerLinks**: a map where the keys are the link texts, the values are the urls. Use $ROOT to refer to the relative path root.
+
+example:
+
+```
+headerLinks: {
+    Docs: '$ROOT/docs',
+},
+```
+
+**relativePathRoot**: in case the project is deployed in some subdirectory, this should be that path. Default is `''`.
+
 
 ## Testing
 
