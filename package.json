@@ -1,43 +1,36 @@
 {
-    "name": "typedoc-plugin-extras",
-    "version": "2.2.3",
-    "description": "A plugin for TypeDoc which adds extras to the generated documentation",
-    "main": "./dist/main.js",
-    "exports": "./dist/main.js",
-    "types": "./dist/main.d.ts",
-    "files": [
-        "dist/"
-    ],
-    "scripts": {
-        "start": "tsc --watch",
-        "test": "typedoc --plugin typedoc-plugin-extras --favicon public/favicon.ico --footerDate --footerTime --footerTypedocVersion src/main.ts",
-        "build": "tsc",
-        "prepublishOnly": "npm run build"
-    },
-    "author": "Corentin Girard",
-    "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/Drarig29/typedoc-plugin-extras/issues"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/Drarig29/typedoc-plugin-extras.git"
-    },
-    "keywords": [
-        "date",
-        "time",
-        "favicon",
-        "typescript",
-        "documentation",
-        "typedocplugin",
-        "typedoc"
-    ],
-    "peerDependencies": {
-        "typedoc": "0.22.x"
-    },
-    "devDependencies": {
-        "@types/node": "^15.14.9",
-        "typedoc": "^0.22.3",
-        "typescript": "^4.4.3"
-    }
+  "name": "typedoc-plugin-header-links",
+  "version": "1.0.0",
+  "description": "A plugin for TypeDoc which adds the ability to add links to the header",
+  "main": "./dist/main.js",
+  "exports": "./dist/main.js",
+  "types": "./dist/main.d.ts",
+  "files": [
+    "dist/"
+  ],
+  "scripts": {
+    "start": "tsc --watch",
+    "test": "typedoc --plugin typedoc-header-links --favicon public/favicon.ico --footerDate --footerTime --footerTypedocVersion src/main.ts",
+    "build": "tsc",
+    "prepublishOnly": "npm run build"
+  },
+  "author": "Corentin Girard & Jouke van der Maas",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joukevandermaas/typedoc-header-links.git"
+  },
+  "keywords": [
+    "typescript",
+    "documentation",
+    "typedocplugin",
+    "typedoc"
+  ],
+  "peerDependencies": {
+    "typedoc": "0.22.x"
+  },
+  "devDependencies": {
+    "@types/node": "^15.14.9",
+    "typescript": "^4.4.3"
+  }
 }

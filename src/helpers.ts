@@ -1,94 +1,31 @@
-/**
- * Creates a relative path from a host file to a target file which is located in the root.
- * @example `modules/_index_.html` --> `../favicon.ico`
- * @param hostPath The path of the file which will contain the resulting relative path.
- * @param targetFilename The name of the target file.
- */
-export function makeRelativeToRoot(hostPath: string, targetFilename: string): string {
-    // Find separators.
-    const match = hostPath.match(/[/\\]/g);
-    if (!match) return targetFilename;
-
-    // Create path with one '../' per separator and targetFilename at the end.
-    const separatorCount = match.length;
-    const parts = [...Array(separatorCount).fill('..'), targetFilename];
-    return parts.join('/');
+export interface HeaderLinks {
+  [linkText: string]: string;
 }
 
 /**
- * Appends a favicon link at the end of `<head>` in the given html.
- * @param html HTML string to append to.
- * @param url URL of the favicon.
+ * Appends links to the header of the generated docs page
+ * @param pageContent a string containing the rendered html for the docs page
+ * @param links the links to add to the docs page
  */
-export function appendFavicon(html: string, url: string): string {
-    return html.replace('</head>',
-        '\t' + // Some tabulation to fit the rest of the document.
-        `<link rel="icon" href="${url}" />` +
-        '\n' + // Push the end of <head> to the next line.
-        '</head>'
-    );
-}
+export function addLinksToHeader(
+  pageContent: string,
+  links: HeaderLinks,
+  root: string
+) {
+  // find the header link
+  let headerLinkRegex = /(?<homelink><a\s+.*?class="title".*?<\/a>)/;
 
-/**
- * Appends a string value after "Generated using TypeDoc".
- * @param html HTML string to append to.
- * @param value A string value.
- */
-export function appendToFooter(html: string, value: string): string {
-    return html.replace(/(<p>Generated using.*TypeDoc.*)(<\/p>)/,
-        '$1' + // Start of <p>
-        value +
-        '$2' // End of <p>
-    );
-}
+  let linksString = "";
 
-/**
- * Determines whether a string is a URL.
- * @param url The URL to check.
- */
-export function isUrl(url: string): boolean {
-    return /^https?:\/\//i.test(url);
-}
+  for (let linkText of Object.keys(links)) {
+    let linkHref = links[linkText];
+    linkHref = linkHref.replace("$ROOT", root);
 
-/**
- * Replaces the top-most title text.
- * @param html HTML string to replace into.
- * @param title The new title to set.
- */
-export function replaceTopMostTitle(html: string, title: string): string {
-    return html.replace(/(<a href=")([^"]*)(" class="title">)([^<]*)(<\/a>)/,
-        '$1' + // Start of <a>
-        '$2' + // The href link
-        '$3' + // The class
-        title +
-        '$5' // End of <a>
-    );
-}
+    linksString += `<span style="margin:0 1em">|</span><a href="${linkHref}" class="title">${linkText}</a>`;
+  }
 
-/**
- * Replaces the meta description
- * @param html HTML string to replace into.
- * @param description The new description to set.
- */
-export function replaceDescription(html: string, description: string): string {
-    return html.replace(/(<meta name="description" content=")([^<]*)("\/>)/,
-        '$1' + // Start of meta tag
-        description.replace('"', '') + // The description (also preventing escaping the attribute)
-        '$3' // end of meta tag
-    );
-}
+  // wrap in a span that contains all the links
+  let result = `<span class="title">$<homelink>${linksString}</span>`;
 
-/**
- * Replaces the top-most title link.
- * @param html HTML string to replace into.
- * @param link The new link to set.
- */
-export function replaceTopMostTitleLink(html: string, link: string): string {
-    return html.replace(/(<a href=")([^"]*)(" class="title">)([^<]*)(<\/a>)/,
-        '$1' + // Start of <a>
-        link +
-        '$3' + // The class
-        '$4' + // The title
-        '$5' // End of <a>
-    );
+  return pageContent.replace(headerLinkRegex, result);
 }
