@@ -1,6 +1,6 @@
 {
   "name": "typedoc-plugin-header-links",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A plugin for TypeDoc which adds the ability to add links to the header",
   "main": "./dist/main.js",
   "exports": "./dist/main.js",
@@ -27,10 +27,10 @@
     "typedoc"
   ],
   "peerDependencies": {
-    "typedoc": "0.22.x"
+    "typedoc": "0.23.x"
   },
   "devDependencies": {
     "@types/node": "^15.14.9",
-    "typescript": "^4.4.3"
+    "typescript": "^4.7.4"
   }
 }
