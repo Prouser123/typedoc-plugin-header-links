@@ -4,3 +4,6 @@ dist/
 .idea/
 package-lock.json
 .DS_Store
+
+# Locally build npm package files
+*.tgz
